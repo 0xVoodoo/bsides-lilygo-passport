@@ -1,4 +1,4 @@
-# Facilitator Guide — BSides BadUSB Lab
+# Facilitator Guide — Trust Me, I’m a Keyboard
 
 **Do not distribute this file to participants.**
 
@@ -10,6 +10,22 @@ Participants must find and fix the bugs, then explain what they learned.
 
 **The fix is intentionally approachable.** The real assessment is whether they can
 explain *why* it was broken — not just *that* it was broken.
+
+---
+
+## Pre-event setup (facilitator)
+
+Run from the repository root on each Lubuntu lab machine:
+
+```bash
+./setup-base.sh
+./setup-labs.sh trust-keyboard
+# or run both steps:
+./provision.sh
+```
+
+Notes:
+- The per-lab provisioning script now lives in `labs/01-trust-keyboard/setup.sh`.
 
 ---
 
@@ -89,7 +105,7 @@ After they fix it, ask these. The goal is understanding, not just code editing.
    this attack still work? Why or why not?"**
    - Answer: No. The same scancodes would produce different characters because
      the French layout maps them differently. For example, HID_KEY_A would
-     produce 'q' on AZERTY. Real BadUSB tools (like Rubber Ducky) need
+     produce 'q' on AZERTY. Commercial keystroke-injection tools (e.g. Rubber Ducky) need
      locale-specific keymap files for this reason.
 
 ### Phase 3 — Defense (discussion, no single right answer)
@@ -103,7 +119,7 @@ After they fix it, ask these. The goal is understanding, not just code editing.
 5. **"Would EDR catch this?"**
    - Maybe. EDR might flag rapid keystroke injection, or the spawned terminal
      process. But the keystrokes themselves look identical to a real keyboard —
-     there's no malware binary to scan. This is why BadUSB is effective: the
+     there's no malware binary to scan. This is why HID keystroke injection is effective: the
      attack IS legitimate HID traffic.
 
 6. **"The device shows up as 'Trust Demo Keyboard' in lsusb. Could an attacker
